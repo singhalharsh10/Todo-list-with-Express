@@ -5,30 +5,24 @@ const { urlencoded } = require('express');
 const app = express()
 
 app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'hbs')
 
 let tasks = [
     'Brush'
 ]
 
+// app.get('/', (req, res) => {
+//     res.render('home', {
+//             title: 'Tasks'
+//         }) //second parameter is used to send some data
+// });
+
+
 app.get('/', (req, res) => {
-    let tasklist = tasks.map(t => `<li>${t}</li>`).join('\n')
-    res.send(`
-    <html>
-    <head>
-    <title>
-    </title>
-    </head>
-    <body>
-    <form action="/" method="POST">
-        <input type="text" name="task" >
-        <button type="submit" id="btnadd">ADD</button>
-    </form>
-    <ul>
-    ${tasklist}
-    </ul>
-    </body>
-    </html>
-    `)
+    res.render('home', {
+            title: 'Todo-List',
+            tasks //passing an aray of tasks
+        }) //second parameter is used to send some data
 });
 
 app.post('/', (req, res) => {
